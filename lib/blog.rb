@@ -2,6 +2,7 @@ require 'sinatra/base'
 require 'github_hook'
 require 'ostruct'
 require 'time'
+require 'yaml'
 
 class Blog < Sinatra::Base
   use GithubHook
@@ -13,9 +14,8 @@ class Blog < Sinatra::Base
   set :articles, []
   set :app_file, __FILE__
 
-
   #loop through all the article files
-  Dir.glob '#{root}/articles/*.md' do |file|
+  Dir.glob "#{root}/articles/*.md" do |file|
     # parse meta data and content from file
     meta, content = File.read(file).split("\n\n", 2)
 
